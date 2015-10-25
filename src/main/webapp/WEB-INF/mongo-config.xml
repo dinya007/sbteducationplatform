@@ -5,8 +5,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
 
        <mongo:mongo id="mongoDb" host="localhost" port="27017"/>
-       <!--<mongo:db-factory id="mongoDbFactory" mongo-ref="mongoDb" dbname="sbteducationplatform" />-->
-       <mongo:db-factory id="mongoDbFactory" mongo-ref="mongoDb" dbname="sbteducationplatform" username="admin" password="c3NecXUNAFJg" />
+       <mongo:db-factory id="mongoDbFactory" mongo-ref="mongoDb" dbname="sbteducationplatform" />
+       <!--<mongo:db-factory id="mongoDbFactory" mongo-ref="mongoDb" dbname="sbteducationplatform" username="admin" password="c3NecXUNAFJg" />-->
 
        <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
               <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
