@@ -1,5 +1,6 @@
 package ru.sbteducationplatform.controller;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,8 +10,8 @@ import ru.sbteducationplatform.dao.SubjectDao;
 import ru.sbteducationplatform.entity.Post;
 import ru.sbteducationplatform.entity.Subject;
 
+import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by denis on 24/10/15.
@@ -33,9 +34,8 @@ public class SubjectController {
 
     @RequestMapping("/subjects")
     @ResponseBody
-    public List<Subject> getSubjects() {
+    public String getSubjects() throws IOException {
         subjectDao.deleteAll();
-        postDao.deleteAll();
 
         Subject javaSubject = new Subject("Language of Programming Java");
         Subject patternSubject = new Subject("Design patterns in software development");
@@ -55,6 +55,8 @@ public class SubjectController {
         subjectDao.save(Arrays.asList(javaSubject, patternSubject));
 
         System.out.println(subjectDao.findAll());
-        return subjectDao.findAll();
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(subjectDao.findAll());
+
     }
 }
