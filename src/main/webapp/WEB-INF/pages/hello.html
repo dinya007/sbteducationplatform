@@ -1,13 +1,18 @@
-<!DOCTYPE html>
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Home page</title>
-    <script type="text/javascript" src="/resources/js/lib/angular2.sfx.dev.js"></script>
-    <script type="text/javascript" src="/resources/js/main.js"></script>
+<head>
+    <title>Angular 2 QuickStart</title>
+    <script src="resources/js/lib/system.js"></script>
+    <script src="resources/js/lib/typescript.js"></script>
+    <script src="resources/js/lib/angular2.dev.js"></script>
+    <script>
+        System.config({
+            transpiler: 'typescript',
+            typescriptOptions: { emitDecoratorMetadata: true }
+        });
+        System.import('/resources/js/main.ts');
+    </script>
 </head>
-
 <body>
-<my-app></my-app>
+<my-app>loading...</my-app>
 </body>
 </html>

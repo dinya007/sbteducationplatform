@@ -25,6 +25,12 @@ public class SubjectController {
 
     @RequestMapping({"/", "/hello"})
     protected String handleRequestInternal() {
+        return "hello";
+    }
+
+    @RequestMapping("/subjects")
+    @ResponseBody
+    public String getSubjects(){
         subjectDao.deleteAll();
         studentDao.deleteAll();
         Student student1 = new Student("vadim", "123456");
@@ -39,12 +45,6 @@ public class SubjectController {
         subjectDao.save(subject);
 
         System.out.println(subjectDao.findAll());
-        return "hello";
-    }
-
-    @RequestMapping("/subjects")
-    @ResponseBody
-    public String getSubjects(){
         return subjectDao.findAll().toString();
     }
 }
