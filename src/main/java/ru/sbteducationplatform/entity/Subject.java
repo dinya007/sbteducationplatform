@@ -13,7 +13,7 @@ public class Subject {
     @Id
     private String id;
     private String name;
-    private List<Student> students = new ArrayList<>();
+    private List<Post> posts = new ArrayList<>();
 
     public Subject(String name) {
         this.name = name;
@@ -23,7 +23,7 @@ public class Subject {
         return id;
     }
 
-    public void setId(String id) {
+    private void setId(String id) {
         this.id = id;
     }
 
@@ -35,24 +35,16 @@ public class Subject {
         this.name = name;
     }
 
-    public List<Student> getStudents() {
-        return students;
+    public List<Post> getPosts() {
+        return posts;
     }
 
-    public void setStudents(List<Student> students) {
-        this.students = students;
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
-    public void addStudent(Student student){
-        students.add(student);
+    public void addPost(Post post) {
+        posts.add(post);
     }
 
-    @Override
-    public String toString() {
-        return "Subject{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", students=" + students +
-                '}';
-    }
 }

@@ -1,27 +1,30 @@
 package ru.sbteducationplatform.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ru.sbteducationplatform.dao.StudentDao;
+import ru.sbteducationplatform.dao.PostDao;
 import ru.sbteducationplatform.dao.SubjectDao;
-import ru.sbteducationplatform.entity.Student;
+import ru.sbteducationplatform.entity.Post;
 import ru.sbteducationplatform.entity.Subject;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by denis on 24/10/15.
  */
 
 @Controller
+@RequestMapping("/rest")
 public class SubjectController {
 
     @Autowired
-    SubjectDao subjectDao;
+    private SubjectDao subjectDao;
 
     @Autowired
-    StudentDao studentDao;
+    private PostDao postDao;
 
     @RequestMapping({"/", "/hello"})
     protected String handleRequestInternal() {
@@ -30,21 +33,28 @@ public class SubjectController {
 
     @RequestMapping("/subjects")
     @ResponseBody
-    public String getSubjects(){
+    public List<Subject> getSubjects() {
         subjectDao.deleteAll();
-        studentDao.deleteAll();
-        Student student1 = new Student("vadim", "123456");
-        Student student2 = new Student("denis", "123456");
-        studentDao.save(student1);
-        studentDao.save(student2);
+        postDao.deleteAll();
 
-        Subject subject = new Subject("Language of Programming Java");
-        subject.addStudent(student1);
-        subject.addStudent(student2);
+        Subject javaSubject = new Subject("Language of Programming Java");
+        Subject patternSubject = new Subject("Design patterns in software development");
 
-        subjectDao.save(subject);
+        Post postConcurrentHashMap = new Post("Sasha Matorin");
+        Post postSolid = new Post("Alexey Agoshkov");
+        Post postProxy = new Post("Alexey Agoshkov");
+
+        postConcurrentHashMap.setMessage("It's awesome.");
+        postSolid.setMessage("I'm not aware of it, sorry guys.");
+        postProxy.setMessage("I've already told you about it.");
+
+        javaSubject.addPost(postConcurrentHashMap);
+        javaSubject.addPost(postProxy);
+        patternSubject.addPost(postSolid);
+
+        subjectDao.save(Arrays.asList(javaSubject, patternSubject));
 
         System.out.println(subjectDao.findAll());
-        return subjectDao.findAll().toString();
+        return subjectDao.findAll();
     }
 }
