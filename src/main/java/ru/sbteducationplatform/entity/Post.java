@@ -3,6 +3,7 @@ package ru.sbteducationplatform.entity;
 import org.springframework.data.annotation.Id;
 
 public class Post {
+
     @Id
     private String id;
     private String author;
@@ -51,7 +52,14 @@ public class Post {
         this.attachment = attachment;
     }
 
+    private Post(){}
+
     public Post(String author) {
         this.author = author;
+    }
+
+    public Post(String author, String message) {
+        this.author = author;
+        this.message = message;
     }
 }
