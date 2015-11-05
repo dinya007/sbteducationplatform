@@ -23,7 +23,7 @@ public class RestSubjectController {
     private SubjectService subjectService;
 
 
-    @RequestMapping(value = "/subjects", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
     public List<Subject> getSubjects() throws IOException {
         return subjectService.getAllSubjets();
