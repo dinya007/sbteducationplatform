@@ -10,3 +10,4 @@ import ru.sbteducationplatform.entity.Subject;
 
 public interface SubjectDao extends MongoRepository<Subject, String> {
 }
+

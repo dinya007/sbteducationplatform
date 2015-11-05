@@ -2,10 +2,8 @@ package ru.sbteducationplatform.entity;
 
 import org.springframework.data.annotation.Id;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 /**
  * Created by denis on 23/10/15.

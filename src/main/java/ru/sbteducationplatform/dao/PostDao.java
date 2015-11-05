@@ -3,7 +3,6 @@ package ru.sbteducationplatform.dao;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import ru.sbteducationplatform.entity.Post;
-import ru.sbteducationplatform.entity.Student;
 
 /**
  * Created by denis on 23/10/15.

@@ -6,6 +6,7 @@ package ru.sbteducationplatform.entity;
 public interface User {
 
     String getLogin();
+
     String getPassword();
 
 }

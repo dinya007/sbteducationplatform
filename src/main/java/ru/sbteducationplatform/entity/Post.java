@@ -52,7 +52,8 @@ public class Post {
         this.attachment = attachment;
     }
 
-    private Post(){}
+    private Post() {
+    }
 
     public Post(String author) {
         this.author = author;

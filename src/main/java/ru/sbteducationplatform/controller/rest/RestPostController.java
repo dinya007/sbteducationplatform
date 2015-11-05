@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.sbteducationplatform.entity.Post;
-import ru.sbteducationplatform.entity.Subject;
 import ru.sbteducationplatform.service.SubjectService;
 
 import java.io.IOException;
