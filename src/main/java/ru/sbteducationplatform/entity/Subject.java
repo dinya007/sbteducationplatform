@@ -3,7 +3,9 @@ package ru.sbteducationplatform.entity;
 import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * Created by denis on 23/10/15.
@@ -13,7 +15,7 @@ public class Subject {
     @Id
     private String id;
     private String name;
-    private List<Post> posts = new ArrayList<>();
+    private LinkedList<Post> posts = new LinkedList<>();
 
     public Subject(String name) {
         this.name = name;
@@ -39,12 +41,13 @@ public class Subject {
         return posts;
     }
 
-    public void setPosts(List<Post> posts) {
+    public void setPosts(LinkedList<Post> posts) {
         this.posts = posts;
     }
 
-    public void addPost(Post post) {
-        posts.add(post);
+    public Post addPost(Post post) {
+        posts.addFirst(post);
+        return post;
     }
 
 }

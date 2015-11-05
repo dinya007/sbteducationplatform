@@ -25,9 +25,10 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public Subject addPost(String subjectsId, String author, String message) {
+    public Post addPost(String subjectsId, String author, String message) {
         Subject subject = subjectDao.findOne(subjectsId);
-        subject.addPost(new Post(author, message));
-        return subjectDao.save(subject);
+        Post post = subject.addPost(new Post(author, message));
+        subjectDao.save(subject);
+        return post;
     }
 }

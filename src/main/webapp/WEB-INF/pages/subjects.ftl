@@ -16,20 +16,6 @@
             contentType: "application/json; charset=utf-8"
         });
 
-
-        //        $.get("/rest/subjects", function (data) {
-        //            console.log(data);
-        //            data = jQuery.parseJSON(data);
-        //            for (var i = 0; i < 2; i++) {
-        //                $("#tabs").children()[0].children[i].children[0].innerText = data[i].name;
-        //                for (var j = 0; j < data[i].posts.length; j++) {
-        //                    var postNode = document.createElement("p");                 // Create a <p> node
-        //                    var textNode = document.createTextNode(data[i].posts[j].author + ": " + data[i].posts[j].message);         // Create a text node
-        //                    postNode.appendChild(textNode);
-        //                    $("#tabs").children()[i + 1].appendChild(postNode);
-        //                }
-        //            }
-        //        });
     </script>
 </head>
 <body>
@@ -42,47 +28,66 @@
     </ul>
 <#list 0..subjects?size-1 as i>
     <div id="tabs-${i}">
-        <#list 0..subjects[i].posts?size-1 as j>
-            <p>${subjects[i].posts[j].author} : ${subjects[i].posts[j].message}</p>
-        </#list>
-        <div style="right: 25%; bottom: 25px; position: absolute;" id="postForm-${i}">
+        <div class="posts" style="overflow-y: scroll; height: 65%; width: 100%; position:absolute;">
+            <#list 0..subjects[i].posts?size-1 as j>
+                <p>${subjects[i].posts[j].author} : ${subjects[i].posts[j].message}</p>
+            </#list>
+        </div>
+        <div style="right: 25%; bottom: 25px; position: absolute;">
+            <span class="errorField" style="color: red; display: none;">Warning</span>
+            <br>
             <input type="hidden" class="subjectId" value="${subjects[i].id}">
+            <input type="hidden" class="tabId" value="${i}">
             <input class="author" type="text" size="41" placeholder="Enter your name here ... " required="required"/>
             <button class="addPost">Add post</button>
             <br>
         <textarea style="margin-top: 5px;" class="message" rows="4" cols="50"
                   placeholder="Enter a message here ... "></textarea>
         </div>
+
     </div>
+
 </#list>
 
 
 </div>
 
 <script>
-    $(".addPost").click(function (event) {
-        var subjectId = $(this).siblings(".subjectId").val();
-        var author = $(this).siblings(".author").val();
-        var message = $(this).siblings(".message").val();
-        author = "Denis";
-        message = "Post message"
-        $.post("/rest/subjects/" + subjectId + "/" + author + "/" + message, function (data) {
-            alert(data);
+    $(".addPost").click(function () {
+
+        var subjectId = getSiblingValue($(this), ".subjectId");
+        var author = $(this).siblings(".author");
+        var message = $(this).siblings(".message");
+
+        var currentPosts = $("#tabs-" + getSiblingValue($(this), ".tabId")).find(".posts")
+        var errorField = $(this).siblings(".errorField");
+
+        if (isEmptyValue(author.val(), "Please, enter an author", errorField)) return;
+        if (isEmptyValue(message.val(), "Please, enter a message", errorField)) return;
+
+        $.post("/rest/posts/" + subjectId + "/" + author.val() + "/" + message.val(), function (data) {
+            currentPosts.prepend("<p>" + data.author + " : " + data.message + "</p>");
         });
-//        $.post("/rest/subjects/", { subjectID: subjectId, author: author, message:message },function (data) {
-//            alert(data);
-//        });
-//        $.ajax({
-//            method: "POST",
-//            url: "/rest/subjects/" + subjectId + "/" + author + "/" + message,
-//            headers: {
-//                Accept : "application/json",
-//            },
-////            data: { subjectId: subjectId, author: author, message:message }
-//            success : function(response) {
-//                console.log(response);
-//            } });
+
+        author.val("");
+        message.val("");
+
     });
+
+    var getSiblingValue = function (original, selector) {
+        return original.siblings(selector).val();
+    }
+
+    var isEmptyValue = function (filedValue, errorMessage, errorField) {
+        if (!filedValue) {
+            errorField.text(errorMessage);
+            errorField.show();
+            errorField.delay(1000);
+            errorField.hide("drop", {direction: "down"}, "slow");
+            return true;
+        }
+        return false;
+    }
 
 
 </script>

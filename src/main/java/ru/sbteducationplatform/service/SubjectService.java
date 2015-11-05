@@ -2,6 +2,7 @@ package ru.sbteducationplatform.service;
 
 
 import org.springframework.stereotype.Component;
+import ru.sbteducationplatform.entity.Post;
 import ru.sbteducationplatform.entity.Subject;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface SubjectService {
 
     List<Subject> getAllSubjets();
 
-    Subject addPost(String subjectsId, String author, String message);
+    Post addPost(String subjectsId, String author, String message);
 
 
 }
